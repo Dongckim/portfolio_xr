@@ -48,8 +48,8 @@ function App() {
       <Hero scrollY={scrollY} />
       <PortfolioMeaning mousePosition={mousePosition} scrollY={scrollY} />
       <About />
-      <Projects />
       <MindMap />
+      <Projects />
       <Footer />
     </>
   )

@@ -459,22 +459,69 @@ body {
 }
 
 /* Mind Map Section */
+.mindmap-section {
+  width: 85%;
+  max-width: 90vw;
+  height: 100vh;
+  margin: 0 auto;
+  position: relative;
+  overflow: hidden;
+}
+
+.mindmap-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #e0e0e0;
+  margin-bottom: 1.5rem;
+  text-align: left;
+  font-family: 'Courier New', monospace;
+  opacity: 1 !important;
+  visibility: visible !important;
+  display: block !important;
+  position: relative;
+  z-index: 100;
+}
+
+.mindmap-subtitle {
+  margin-bottom: 2rem;
+  text-align: left;
+  opacity: 1 !important;
+  visibility: visible !important;
+  display: block !important;
+  position: relative;
+  z-index: 100;
+}
+
+.mindmap-subtitle p {
+  font-size: 1.3rem;
+  line-height: 1.5;
+  color: #94a3b8;
+  margin-bottom: 0.3rem;
+  font-weight: 300;
+  font-family: 'Times New Roman', serif;
+  letter-spacing: 0.3px;
+  opacity: 0.85;
+  transition: opacity 0.3s ease;
+}
+
+.mindmap-subtitle p:hover {
+  opacity: 1;
+  color: #cbd5e1;
+}
+
 .mindmap-container {
   position: relative;
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   width: 100%;
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 8vw;
-  cursor: pointer;
-  transition: transform 0.3s ease, opacity 0.8s ease;
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+  cursor: grab;
+  transition: opacity 0.8s ease;
   z-index: 15;
   background: transparent;
   opacity: 0;
   transform: translateY(30px);
+  overflow: hidden;
 }
 
 .mindmap-container.visible {
@@ -1812,6 +1859,67 @@ body {
 
   .project-card-title-overlay p {
     font-size: clamp(0.7rem, 2vw, 0.85rem);
+  }
+}
+
+/* Mind Map Mobile Styles */
+@media (max-width: 768px) {
+  .mindmap-section {
+    width: 95%;
+    padding: 0.5rem 0.5rem;
+    height: auto;
+    min-height: auto;
+  }
+
+  .mindmap-subtitle {
+    margin-bottom: 0.8rem;
+  }
+
+  .mindmap-subtitle p {
+    font-size: 1.1rem;
+    line-height: 1.5;
+    margin-bottom: 0.3rem;
+    font-family: 'Times New Roman', serif;
+    color: #94a3b8;
+    opacity: 0.85;
+  }
+
+  .mindmap-subtitle p:hover {
+    opacity: 1;
+    color: #cbd5e1;
+  }
+
+  .mindmap-container {
+    height: 70vh;
+    min-height: 400px;
+    touch-action: none;
+    -webkit-overflow-scrolling: touch;
+    margin-bottom: 0.5rem;
+  }
+
+  .ui-panel {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    right: auto;
+    max-width: 250px;
+    font-size: 0.85rem;
+    padding: 15px;
+    z-index: 20;
+  }
+
+  .panel-title {
+    font-size: 10px;
+  }
+
+  .panel-main {
+    font-size: 14px;
+    margin-bottom: 15px;
+  }
+
+  .tag {
+    font-size: 9px;
+    padding: 3px 6px;
   }
 }
 
