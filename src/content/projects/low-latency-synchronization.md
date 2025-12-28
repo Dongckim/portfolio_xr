@@ -3,6 +3,7 @@ id: 3
 title: 'Low-Latency Synchronization'
 description: 'Engineered a Master-Client network architecture achieving ±3 frame synchronization accuracy across multiple standalone VR headsets using a custom NTP-like protocol.'
 iconType: 'plane'
+category: 'extended reality'
 youtubeUrl: 'UoeiSMDjMIo'
 gifs:
   - '/project/client.jpg'

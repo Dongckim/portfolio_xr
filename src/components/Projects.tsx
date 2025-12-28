@@ -100,6 +100,7 @@ interface Project {
   youtubeUrl?: string // YouTube video ID
   gifs?: string[] // Array of image file paths (GIF, JPG, PNG, etc.) - first item is used as card thumbnail
   technologies?: string[]
+  category?: 'extended reality' | 'software' // Project category
 }
 
 // Dynamically import all markdown files from the projects folder
@@ -211,6 +212,7 @@ const parseMarkdownProject = (mdContent: string, fileName: string): Project | nu
       youtubeUrl: frontmatter.youtubeUrl,
       gifs: frontmatter.gifs || [],
       technologies: frontmatter.technologies || [],
+      category: frontmatter.category || 'extended reality', // Default to 'extended reality' if not specified
     }
     return project
   } catch (error) {
@@ -231,9 +233,12 @@ const markdownProjects: Project[] = Object.entries(markdownModules)
 // All projects are now loaded from markdown files
 const projects: Project[] = markdownProjects
 
+type TabType = 'extended reality' | 'software'
+
 export default function Projects() {
   const [isVisible, setIsVisible] = useState(false)
   const [selectedProject, setSelectedProject] = useState<Project | null>(null)
+  const [activeTab, setActiveTab] = useState<TabType>('extended reality')
 
   useEffect(() => {
     const handleScroll = () => {
@@ -308,6 +313,12 @@ export default function Projects() {
     return cleanup
   }, [selectedProject])
 
+  // Filter projects based on active tab
+  const filteredProjects = projects.filter(project => {
+    const category = project.category || 'extended reality'
+    return category === activeTab
+  })
+
   return (
     <>
       <section
@@ -315,17 +326,35 @@ export default function Projects() {
         id="projects"
       >
         <h2 className="projects-title">Projects</h2>
+        
+        {/* Tabs */}
+        <div className="projects-tabs">
+          <button
+            className={`projects-tab ${activeTab === 'extended reality' ? 'active' : ''}`}
+            onClick={() => setActiveTab('extended reality')}
+          >
+            Extended Reality
+          </button>
+          <button
+            className={`projects-tab ${activeTab === 'software' ? 'active' : ''}`}
+            onClick={() => setActiveTab('software')}
+          >
+            Other Software
+          </button>
+        </div>
+
+        {/* Projects Grid */}
         <div className="projects-grid">
-        {projects.map((project) => (
-          <ProjectCard 
-            key={project.id} 
+          {filteredProjects.map((project) => (
+            <ProjectCard 
+              key={project.id} 
               id={project.id}
               title={project.title}
               description={project.description}
               gifs={project.gifs}
-            onClick={() => handleProjectClick(project)}
-          />
-        ))}
+              onClick={() => handleProjectClick(project)}
+            />
+          ))}
         </div>
       </section>
 

@@ -3,6 +3,7 @@ id: 1
 title: 'Grab Stabilization | Hand Interaction between Virtual Object'
 description: 'Implemented a stable hand-tracking interaction system for virtual objects using proximity detection and custom anchor logic to prevent jitter.'
 iconType: 'sphere'
+category: 'extended reality'
 youtubeUrl:
 gifs:
   - '/project/grab-after.gif'

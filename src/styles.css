@@ -186,12 +186,63 @@ body {
 .projects-title {
   font-family: 'Times New Roman', Times, serif;
   font-size: clamp(2.5rem, 5vw, 3.5rem);
-  margin-bottom: 4rem;
+  margin-bottom: 3rem;
   color: #ffffff;
   text-align: center;
   text-shadow: 0 0 30px rgba(0, 170, 255, 0.3);
   font-weight: 400;
   letter-spacing: 0.05em;
+}
+
+.projects-tabs {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0;
+  margin-bottom: 3rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  max-width: 1400px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 0 2rem;
+}
+
+.projects-tab {
+  flex: 0 0 auto;
+  padding: 1rem 2.5rem;
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid transparent;
+  color: rgba(255, 255, 255, 0.6);
+  font-family: 'Times New Roman', Times, serif;
+  font-size: clamp(1rem, 2vw, 1.2rem);
+  font-weight: 400;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.projects-tab:hover {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.projects-tab.active {
+  color: #ffffff;
+  border-bottom-color: rgba(0, 170, 255, 0.8);
+  text-shadow: 0 0 20px rgba(0, 170, 255, 0.4);
+}
+
+.projects-tab.active::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: rgba(0, 170, 255, 0.8);
+  box-shadow: 0 0 10px rgba(0, 170, 255, 0.6);
 }
 
 .projects-grid {
@@ -1814,6 +1865,16 @@ body {
     padding-left: 0.4rem;
   }
 
+  .projects-tabs {
+    padding: 0 1rem;
+    margin-bottom: 2rem;
+  }
+
+  .projects-tab {
+    padding: 0.8rem 1.5rem;
+    font-size: clamp(0.9rem, 3vw, 1.1rem);
+  }
+
   .projects-grid {
     grid-template-columns: repeat(2, 1fr);
     gap: 2px;
@@ -1824,6 +1885,16 @@ body {
   .projects-section {
     padding-left: 0;
     padding-right: 0;
+  }
+
+  .projects-tabs {
+    padding: 0 0.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .projects-tab {
+    padding: 0.7rem 1rem;
+    font-size: 0.9rem;
   }
 
   .projects-grid {
