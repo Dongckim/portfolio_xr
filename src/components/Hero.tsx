@@ -41,18 +41,14 @@ export default function Hero({ scrollY }: HeroProps) {
           onMouseLeave={() => setIsHovering(false)}
           onMouseMove={handleMouseMove}
         >
-          Dongchan Alex Kim ᯅ
+          Dongchan Kim (Alex) ᯅ
         </h1>
         <p className="tagline">
-          Senior Undergraduate @Stonybrook University
-        </p>
-        <p className="tagline">
-          building immersive systems at the boundary of XR, and spatial
-          computing for next-generation UX.
+            Building immersive XR systems with a focus on spatial interaction and real-time UX.
         </p>
         <div className="description">
-          <p>Current Senior AR Dev Mentor @ <a href="https://www.xreal.info/" target="_blank" rel="noopener noreferrer">XREAL,  Seoul National University</a></p>
-          <p>Current AR Developer @ <a href="" target="_blank" rel="noopener noreferrer">Immersyn</a></p>
+          <p>Senior AR Dev Mentor @ <a href="https://www.xreal.info/" target="_blank" rel="noopener noreferrer">XREAL</a></p>
+          <p>AR Developer @ <a href="" target="_blank" rel="noopener noreferrer">Immersyn</a></p>
           <p>VR Software Engineering Intern @ <a href="https://mingle-ai.com/en" target="_blank" rel="noopener noreferrer">KAI.Inc</a> (Jun 2025 - Sept 2025)</p> 
         </div>
         <nav className="links">
