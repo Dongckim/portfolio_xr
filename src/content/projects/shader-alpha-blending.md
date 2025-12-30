@@ -1,5 +1,5 @@
 ---
-id: 2
+id: 4
 title: 'Shader-based Alpha Blending'
 description: 'Developed a custom shader pipeline and interaction logic to create a seamless transition between the 8K 360° VR environment and the MR Passthrough layer.'
 iconType: 'dots'
