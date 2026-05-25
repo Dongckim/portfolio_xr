@@ -1,5 +1,5 @@
 ---
-id: 2
+id: 1
 title: '8K 360° Stereoscopic Video with MR Passthrough'
 description: 'Optimized an 8K video player for mobile VR by implementing a single-pass decoding system for stereoscopic rendering.'
 iconType: 'sphere'

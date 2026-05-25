@@ -1,33 +1,35 @@
 import { useEffect, useRef } from 'react'
+import { input } from '../input'
 
-interface PortfolioMeaningProps {
-  mousePosition: { x: number; y: number }
-  scrollY: number
-}
-
-export default function PortfolioMeaning({ scrollY }: PortfolioMeaningProps) {
+export default function PortfolioMeaning() {
   const sectionRef = useRef<HTMLDivElement>(null)
   const textRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
-    const section = sectionRef.current
-    const text = textRef.current
-    if (!section || !text) return
+    let raf = 0
+    let lastVisible: boolean | null = null
 
-    // Calculate scroll progress based on viewport height (same as cube animation)
-    // Text appears when cube starts moving (at 0.2 viewport height)
-    const viewportHeight = window.innerHeight
-    const scrollStart = viewportHeight * 0.2  // Same as cube animation start
-    const scrollEnd = viewportHeight * 0.8    // Same as cube animation end
-    const scrollProgress = Math.max(0, Math.min(1, (scrollY - scrollStart) / (scrollEnd - scrollStart)))
-    
-    // Show text immediately when cube starts moving (much earlier)
-    if (scrollProgress > 0.1) {
-      text.classList.add('visible')
-    } else {
-      text.classList.remove('visible')
+    const tick = () => {
+      const text = textRef.current
+      if (text) {
+        const vh = window.innerHeight
+        const start = vh * 0.2
+        const end = vh * 0.8
+        const progress = Math.max(
+          0,
+          Math.min(1, (input.scrollY - start) / (end - start))
+        )
+        const shouldShow = progress > 0.1
+        if (shouldShow !== lastVisible) {
+          lastVisible = shouldShow
+          text.classList.toggle('visible', shouldShow)
+        }
+      }
+      raf = requestAnimationFrame(tick)
     }
-  }, [scrollY])
+    raf = requestAnimationFrame(tick)
+    return () => cancelAnimationFrame(raf)
+  }, [])
 
   return (
     <section ref={sectionRef} className="portfolio-meaning-section">
@@ -56,4 +58,3 @@ export default function PortfolioMeaning({ scrollY }: PortfolioMeaningProps) {
     </section>
   )
 }
-

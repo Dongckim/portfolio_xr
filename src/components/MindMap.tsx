@@ -7,10 +7,17 @@ interface TreeNode {
   children?: TreeNode[]
 }
 
+// ─────────────────────────────────────────────────────────────────────
+// Master map — a philosophical view of what I'm building toward.
+// Branches are framed as statements and questions; leaves are values,
+// principles, and the convictions that drive my XR work. Less résumé,
+// more compass.
+// ─────────────────────────────────────────────────────────────────────
 const masterData: TreeNode = {
   name: "Intelligence in Reality",
   group: "core",
   children: [
+    // ── LEFT / INPUT 1 ───────────────────────────────────────────────
     {
       name: "Architecting Spatial Reality",
       group: "context",
@@ -21,7 +28,16 @@ const masterData: TreeNode = {
           children: [
             { name: "Spatial Geometry", group: "context" },
             { name: "Meaningful Spaces", group: "context" },
-            { name: "Blending Realities", group: "context" }
+            { name: "Light Gives Intention", group: "context" }
+          ]
+        },
+        {
+          name: "Egocentric Awareness",
+          group: "context",
+          children: [
+            { name: "Seeing What You See", group: "context" },
+            { name: "Ambient Vision", group: "context" },
+            { name: "The Always-On Mind", group: "context" }
           ]
         },
         {
@@ -29,12 +45,13 @@ const masterData: TreeNode = {
           group: "context",
           children: [
             { name: "Beyond Controllers", group: "context" },
-            { name: "Eye as Input", group: "context" },
+            { name: "The Body as Interface", group: "context" },
             { name: "Implicit Signals", group: "context" }
           ]
         }
       ]
     },
+    // ── LEFT / INPUT 2 ───────────────────────────────────────────────
     {
       name: "Bridging Virtual and Realities",
       group: "system",
@@ -45,7 +62,16 @@ const masterData: TreeNode = {
           children: [
             { name: "Zero Latency", group: "system" },
             { name: "Shared Timeline", group: "system" },
-            { name: "Time Correction", group: "system" }
+            { name: "Frame-Level Truth", group: "system" }
+          ]
+        },
+        {
+          name: "Localization at Scale",
+          group: "system",
+          children: [
+            { name: "SLAM / VIO", group: "system" },
+            { name: "Indoor & Outdoor", group: "system" },
+            { name: "Mobile-First Anchors", group: "system" }
           ]
         },
         {
@@ -53,21 +79,33 @@ const masterData: TreeNode = {
           group: "system",
           children: [
             { name: "Spatial Anchors", group: "system" },
-            { name: "Drift-free World", group: "system" }
+            { name: "Spaces That Remember", group: "system" },
+            { name: "Drift-Free World", group: "system" }
+          ]
+        },
+        {
+          name: "Engineering the Invisible",
+          group: "system",
+          children: [
+            { name: "Wearable-Scale Compute", group: "system" },
+            { name: "Edge-Side Decisions", group: "system" },
+            { name: "What's Worth Sending?", group: "system" }
           ]
         }
       ]
     },
+    // ── RIGHT / OUTPUT 1 ─────────────────────────────────────────────
     {
-      name: "How should it react?",
+      name: "How should reality feel?",
       group: "interface",
       children: [
         {
           name: "Seamless Vision",
           group: "interface",
           children: [
-            { name: "Visual Blending", group: "interface" },
-            { name: "Digital Presence", group: "interface" }
+            { name: "Real ↔ Virtual Fade", group: "interface" },
+            { name: "Visual Continuity", group: "interface" },
+            { name: "Light as Language", group: "interface" }
           ]
         },
         {
@@ -75,25 +113,62 @@ const masterData: TreeNode = {
           group: "interface",
           children: [
             { name: "Can we touch it?", group: "interface" },
-            { name: "Physics Interaction", group: "interface" }
+            { name: "Hands Without Hesitation", group: "interface" },
+            { name: "Physics That Listens", group: "interface" }
           ]
         },
         {
           name: "Spatial Soundscape",
           group: "interface",
           children: [
-            { name: "Conversational UI", group: "interface" }
+            { name: "The Coach in Your Ear", group: "interface" },
+            { name: "Conversational UI", group: "interface" },
+            { name: "Audio You Don't See", group: "interface" }
           ]
         }
       ]
     },
+    // ── RIGHT / OUTPUT 2 ─────────────────────────────────────────────
     {
-      name: "Why do we build this?",
+      name: "Why do I keep building?",
       group: "value",
       children: [
-        { name: "True Co-presence", group: "value" },
-        { name: "Zero Friction", group: "value" },
-        { name: "SpatialAI as a Partner", group: "value" }
+        {
+          name: "Human Connection",
+          group: "value",
+          children: [
+            { name: "True Co-presence", group: "value" },
+            { name: "Technology as Facilitator", group: "value" },
+            { name: "Bringing People Closer", group: "value" }
+          ]
+        },
+        {
+          name: "Empowerment",
+          group: "value",
+          children: [
+            { name: "Achieve Full Potential", group: "value" },
+            { name: "Knowledge Without Friction", group: "value" },
+            { name: "Therapy as Software", group: "value" }
+          ]
+        },
+        {
+          name: "Building With Others",
+          group: "value",
+          children: [
+            { name: "Horizontal Collaboration", group: "value" },
+            { name: "Open Problems, Together", group: "value" },
+            { name: "Mentor & Be Mentored", group: "value" }
+          ]
+        },
+        {
+          name: "The Future I Walk Toward",
+          group: "value",
+          children: [
+            { name: "The Device That Disappears", group: "value" },
+            { name: "Reality That Listens Back", group: "value" },
+            { name: "Spatial AI as Partner", group: "value" }
+          ]
+        }
       ]
     }
   ]
@@ -173,6 +248,8 @@ export default function MindMap() {
       })
     
     svg.call(zoom)
+    // Disable wheel zoom so mouse-wheel scrolls the page normally (drag-pan stays).
+    svg.on('wheel.zoom', null)
     svg.on('mousedown', () => {
       svg.style('cursor', 'grabbing')
     })
@@ -190,8 +267,9 @@ export default function MindMap() {
     const leftTreeData: TreeNode = { ...masterData, children: leftChildren }
     const rightTreeData: TreeNode = { ...masterData, children: rightChildren }
 
-    // Layout Calculation
-    const tree = d3.tree<TreeNode>().nodeSize([35, 200])
+    // Layout Calculation — wider horizontal spacing to accommodate longer
+    // leaf names (project + role labels).
+    const tree = d3.tree<TreeNode>().nodeSize([38, 260])
 
     // Process Left Tree (Inputs)
     const rootLeft = d3.hierarchy(leftTreeData)
@@ -459,9 +537,10 @@ export default function MindMap() {
   return (
     <div className="mindmap-section">
       <div className="mindmap-subtitle">
-        <p>1. Architecting Seamless Reality: From Low-Latency Systems to Spatial Interaction</p>
-        <p>2. Bridging Realities: Engineering Seamless Human with Spatial AI</p>
-        <p>3. Pioneering Next-Generation User Experience</p>
+        <p>1. Architecting Spatial Reality — reading atmosphere, ambient awareness, decoding intent</p>
+        <p>2. Bridging Virtual and Realities — synchronization, memory of place, engineering the invisible</p>
+        <p>3. How should reality feel? — seamless vision, physicality, spatial soundscape</p>
+        <p>4. Why do I keep building? — connection, empowerment, the future I walk toward</p>
       </div>
       
       <div 
@@ -477,17 +556,18 @@ export default function MindMap() {
         <div className="ui-panel">
           <div className="panel-title">System Blueprint</div>
           <div className="panel-main">Intelligence<br/>in Reality</div>
-          
+
           <div style={{display: 'flex', flexWrap: 'wrap', gap: '5px'}}>
-            <span className="tag" style={{background: '#60a5fa'}}>INPUT: Context</span>
-            <span className="tag" style={{background: '#fbbf24'}}>INPUT: System</span>
-            <span className="tag" style={{background: '#e879f9'}}>OUTPUT: Interface</span>
-            <span className="tag" style={{background: '#34d399'}}>OUTPUT: Value</span>
+            <span className="tag" style={{background: '#60a5fa'}}>IN · Architecting Spatial Reality</span>
+            <span className="tag" style={{background: '#fbbf24'}}>IN · Bridging Virtual and Realities</span>
+            <span className="tag" style={{background: '#e879f9'}}>OUT · How should reality feel?</span>
+            <span className="tag" style={{background: '#34d399'}}>OUT · Why do I keep building?</span>
           </div>
 
           <div className="mt-4 text-[11px] text-slate-400 border-t border-slate-600 pt-3">
-            Nodes converge to the center and diverge outwards.<br/>
-            Hover to see the data flow.
+            Left side — what I build inside reality.<br/>
+            Right side — what reality should feel like, and why.<br/>
+            Drag to pan. Hover any node to trace the thought.
           </div>
         </div>
       </div>

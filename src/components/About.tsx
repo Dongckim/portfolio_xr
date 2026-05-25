@@ -14,20 +14,21 @@ export default function About() {
   const containerRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
-    const handleScroll = () => {
-      if (!containerRef.current) return
-      
-      const rect = containerRef.current.getBoundingClientRect()
-      const windowHeight = window.innerHeight
-      
-      if (rect.top < windowHeight && rect.bottom > 0) {
-        setIsVisible(true)
-      }
-    }
+    const el = containerRef.current
+    if (!el) return
 
-    handleScroll()
-    window.addEventListener('scroll', handleScroll)
-    return () => window.removeEventListener('scroll', handleScroll)
+    // Once-only visibility flip via IntersectionObserver (no scroll listener).
+    const io = new IntersectionObserver(
+      (entries) => {
+        if (entries.some((e) => e.isIntersecting)) {
+          setIsVisible(true)
+          io.disconnect()
+        }
+      },
+      { threshold: 0 }
+    )
+    io.observe(el)
+    return () => io.disconnect()
   }, [])
 
 

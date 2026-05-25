@@ -12,6 +12,12 @@ dist
 dist-ssr
 *.local
 
+# Local backup of original (pre-compression) GIFs — not for the repo
+gif-originals-backup
+
+# Claude Code local state
+.claude
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json

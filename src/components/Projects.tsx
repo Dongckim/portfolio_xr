@@ -198,7 +198,7 @@ const parseMarkdownProject = (mdContent: string, fileName: string): Project | nu
     
     const { frontmatter, body } = parseFrontmatter(mdContent)
     
-    if (!frontmatter.id || !frontmatter.title || !frontmatter.description) {
+    if (frontmatter.id === undefined || !frontmatter.title || !frontmatter.description) {
       console.error(`Missing required fields in ${fileName}:`, frontmatter)
       return null
     }
@@ -241,12 +241,20 @@ export default function Projects() {
   const [activeTab, setActiveTab] = useState<TabType>('extended reality')
 
   useEffect(() => {
+    let raf = 0
     const handleScroll = () => {
-      setIsVisible(window.scrollY > 100)
+      if (raf) return
+      raf = requestAnimationFrame(() => {
+        raf = 0
+        setIsVisible(window.scrollY > 100)
+      })
     }
 
-    window.addEventListener('scroll', handleScroll)
-    return () => window.removeEventListener('scroll', handleScroll)
+    window.addEventListener('scroll', handleScroll, { passive: true })
+    return () => {
+      if (raf) cancelAnimationFrame(raf)
+      window.removeEventListener('scroll', handleScroll)
+    }
   }, [])
 
   const handleProjectClick = (project: Project) => {
@@ -256,6 +264,40 @@ export default function Projects() {
   const handleCloseModal = () => {
     setSelectedProject(null)
   }
+
+  // Lock background scroll while the project modal is open.
+  // Preserve scroll position so closing the modal doesn't jump the page.
+  useEffect(() => {
+    if (!selectedProject) return
+
+    const scrollY = window.scrollY
+    const body = document.body
+    const prev = {
+      position: body.style.position,
+      top: body.style.top,
+      width: body.style.width,
+      overflow: body.style.overflow,
+    }
+
+    body.style.position = 'fixed'
+    body.style.top = `-${scrollY}px`
+    body.style.width = '100%'
+    body.style.overflow = 'hidden'
+
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setSelectedProject(null)
+    }
+    window.addEventListener('keydown', onKey)
+
+    return () => {
+      body.style.position = prev.position
+      body.style.top = prev.top
+      body.style.width = prev.width
+      body.style.overflow = prev.overflow
+      window.removeEventListener('keydown', onKey)
+      window.scrollTo(0, scrollY)
+    }
+  }, [selectedProject])
 
   // Load YouTube iframe API and set volume for selected project
   useEffect(() => {
@@ -313,12 +355,6 @@ export default function Projects() {
     return cleanup
   }, [selectedProject])
 
-  // Filter projects based on active tab
-  const filteredProjects = projects.filter(project => {
-    const category = project.category || 'extended reality'
-    return category === activeTab
-  })
-
   return (
     <>
       <section
@@ -326,7 +362,7 @@ export default function Projects() {
         id="projects"
       >
         <h2 className="projects-title">Projects</h2>
-        
+
         {/* Tabs */}
         <div className="projects-tabs">
           <button
@@ -343,19 +379,27 @@ export default function Projects() {
           </button>
         </div>
 
-        {/* Projects Grid */}
-        <div className="projects-grid">
-          {filteredProjects.map((project) => (
-            <ProjectCard 
-              key={project.id} 
-              id={project.id}
-              title={project.title}
-              description={project.description}
-              gifs={project.gifs}
-              onClick={() => handleProjectClick(project)}
-            />
-          ))}
-        </div>
+        {/* Projects Grid — render both tabs, hide inactive with CSS to preserve image cache */}
+        {(['extended reality', 'software'] as TabType[]).map((tab) => (
+          <div
+            key={tab}
+            className="projects-grid"
+            style={{ display: activeTab === tab ? 'grid' : 'none' }}
+          >
+            {projects
+              .filter((p) => (p.category || 'extended reality') === tab)
+              .map((project) => (
+                <ProjectCard
+                  key={`${tab}-${project.id}`}
+                  id={project.id}
+                  title={project.title}
+                  description={project.description}
+                  gifs={project.gifs}
+                  onClick={() => handleProjectClick(project)}
+                />
+              ))}
+          </div>
+        ))}
       </section>
 
       {selectedProject && (

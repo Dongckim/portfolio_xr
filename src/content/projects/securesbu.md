@@ -135,8 +135,6 @@ I learned that:
 
 By combining **RAG-based AI, backend workflow orchestration, and real-time communication**, SecureSBU represents my approach to building **enterprise-grade AI systems**: reliable, grounded, and deeply integrated into human workflows.
 
----
-
-## 🔗 Links
+---## 🔗 Links
 - **DevPost**: [https://devpost.com/software/securesbu]
 - **GitHub Repository**: [https://github.com/SBUhacks2025]

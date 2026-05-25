@@ -1,21 +1,10 @@
 import { useEffect, useRef } from 'react'
+import { input } from '../input'
 
-interface HologramProps {
-  mousePosition: { x: number; y: number }
-  scrollY: number
-}
-
-export default function Hologram({ mousePosition, scrollY }: HologramProps) {
+export default function Hologram() {
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const animationFrameRef = useRef<number>()
-  const mouseXRef = useRef(mousePosition.x)
-  const mouseYRef = useRef(mousePosition.y)
   const rotationRef = useRef({ x: 0, y: 0, z: 0 })
-
-  useEffect(() => {
-    mouseXRef.current = mousePosition.x
-    mouseYRef.current = mousePosition.y
-  }, [mousePosition])
 
   useEffect(() => {
     const canvas = canvasRef.current
@@ -50,8 +39,8 @@ export default function Hologram({ mousePosition, scrollY }: HologramProps) {
 
       // Smooth mouse movement - always track current mouse position
       // This ensures lighting follows mouse even when scrolling
-      const currentMouseX = mouseXRef.current
-      const currentMouseY = mouseYRef.current
+      const currentMouseX = input.mouse.x
+      const currentMouseY = input.mouse.y
       
       // Always smoothly interpolate to current mouse position
       // This keeps lighting at mouse position even during scroll
@@ -67,7 +56,7 @@ export default function Hologram({ mousePosition, scrollY }: HologramProps) {
       // Finish when About section first appears in viewport
       const cubeAnimationStart = 0  // Start immediately when scrolling begins
       const cubeAnimationEnd = window.innerHeight * 1.2   // Finish when About section first appears
-      const scrollProgress = Math.max(0, Math.min(1, (scrollY - cubeAnimationStart) / (cubeAnimationEnd - cubeAnimationStart)))
+      const scrollProgress = Math.max(0, Math.min(1, (input.scrollY - cubeAnimationStart) / (cubeAnimationEnd - cubeAnimationStart)))
       
       // Smooth easing function - more gentle for natural feel
       const easeInOutCubic = (t: number) => t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2
@@ -269,37 +258,63 @@ export default function Hologram({ mousePosition, scrollY }: HologramProps) {
       }
     }
 
+    let cleared = false
+
     function animate() {
       if (!ctx) return
-      
+
       // Fade effect based on scroll - keep visible until after PortfolioMeaning section
       // PortfolioMeaning is at ~1 viewport height, so keep visible until ~2 viewport heights
       const fadeStart = window.innerHeight * 2
       const fadeEnd = window.innerHeight * 3
-      const fadeProgress = Math.max(0, Math.min(1, (scrollY - fadeStart) / (fadeEnd - fadeStart)))
+      const fadeProgress = Math.max(0, Math.min(1, (input.scrollY - fadeStart) / (fadeEnd - fadeStart)))
       const fadeOpacity = 1 - fadeProgress
-      
-      ctx.fillStyle = `rgba(11, 11, 12, ${0.3 + (1 - fadeOpacity) * 0.2})`
-      ctx.fillRect(0, 0, width, height)
 
-      ctx.globalAlpha = fadeOpacity
-      drawGrid()
-      ctx.globalAlpha = 1
+      if (fadeOpacity <= 0) {
+        // Fully faded out (user scrolled past). Skip the expensive per-cell
+        // grid render; just clear the canvas once and idle.
+        if (!cleared) {
+          ctx.clearRect(0, 0, width, height)
+          cleared = true
+        }
+      } else {
+        cleared = false
+        ctx.fillStyle = `rgba(11, 11, 12, ${0.3 + (1 - fadeOpacity) * 0.2})`
+        ctx.fillRect(0, 0, width, height)
+
+        ctx.globalAlpha = fadeOpacity
+        drawGrid()
+        ctx.globalAlpha = 1
+      }
 
       animationFrameRef.current = requestAnimationFrame(animate)
     }
 
+    // Pause the loop entirely when the tab is hidden.
+    const handleVisibility = () => {
+      if (document.hidden) {
+        if (animationFrameRef.current) {
+          cancelAnimationFrame(animationFrameRef.current)
+          animationFrameRef.current = undefined
+        }
+      } else if (animationFrameRef.current === undefined) {
+        animate()
+      }
+    }
+
     resize()
     window.addEventListener('resize', resize)
+    document.addEventListener('visibilitychange', handleVisibility)
     animate()
 
     return () => {
       window.removeEventListener('resize', resize)
+      document.removeEventListener('visibilitychange', handleVisibility)
       if (animationFrameRef.current) {
         cancelAnimationFrame(animationFrameRef.current)
       }
     }
-  }, [scrollY])
+  }, [])
 
   return (
     <div className="hologram-container">

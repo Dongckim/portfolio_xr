@@ -19,10 +19,12 @@ export default function ProjectCard({
       style={{ cursor: onClick ? 'pointer' : 'default' }}
     >
       {gifs && gifs.length > 0 ? (
-        <img 
-          src={gifs[0]} 
+        <img
+          src={gifs[0]}
           alt={`${title} thumbnail`}
           className="project-gif-thumbnail"
+          loading="lazy"
+          decoding="async"
           onError={(e) => {
             const target = e.target as HTMLImageElement
             target.src = `https://via.placeholder.com/400x400/0b0b0c/00aaff?text=${encodeURIComponent(title)}`

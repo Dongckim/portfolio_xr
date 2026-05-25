@@ -1,17 +1,23 @@
 ---
-id: 6
+id: 2
 title: 'Folding Birding: Mixed Reality Interaction Exhibit'
-description: 'Connects analog paper-folding emotions with digital life through MR technology and custom 3D texturing.'
+description: 'A Meta Quest 3 MR exhibit with hand-tracking gesture interaction and a persistent OVRSpatialAnchor system — UUID-serialized anchors relocalize content world-aligned across sessions. OpenCV real-time texturing maps physical paper birds onto 3D models.'
 iconType: 'bird'
 category: 'extended reality'
 gifs:
   - '/project/interaction_affection.gif'
 technologies:
   - 'Unity'
-  - 'OpenCV'
   - 'C#'
-  - 'python'
+  - 'Meta XR SDK'
   - 'Meta Quest 3'
+  - 'Spatial Anchors (OVRSpatialAnchor)'
+  - 'Anchor Relocalization / Persistence'
+  - 'Hand Tracking (Interaction SDK)'
+  - 'MR Passthrough'
+  - 'OpenCV'
+  - 'Python'
+  - 'REST API'
 ---
 
 # **Folding Birding**
@@ -81,8 +87,6 @@ The environment is engineered for long-term exhibit stability and visual immersi
 
 * **Environment**: A low-poly fairytale natural space designed to evoke a sense of childhood innocence.
 * **Sky System**: Custom shaders for sky textures and fog parameters to visualize time changes.
-* **Persistent Spatial Anchor System**: Engineered a drift-free MR experience using **OVRSpatialAnchor** (Mixed Reality Utility Kit). This enables reliable content relocalization across different sessions by serializing UUID-based anchor data to local storage, ensuring the virtual fence and bird-spawn points remain physically aligned with the exhibit hall
-
-<div style="text-align: center; margin: 1.5rem 0;">
+* **Persistent Spatial Anchor System**: Engineered a drift-free MR experience using **OVRSpatialAnchor** (Mixed Reality Utility Kit). This enables reliable content relocalization across different sessions by serializing UUID-based anchor data to local storage, ensuring the virtual fence and bird-spawn points remain physically aligned with the exhibit hall<div style="text-align: center; margin: 1.5rem 0;">
   <img src="/project/birdings.gif" alt="Kill Switch" style="width: 60%; max-width: 500px; display: block; margin: 0 auto;" />
 </div>
