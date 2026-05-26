@@ -89,11 +89,11 @@ export default function About() {
 
           <div className="about-text-content">
             <p className="about-intro">
-              Hello. I am a creative technologist building immersive systems at the boundary of XR, agents, and spatial computing.
+              Hello. I am an engineer building immersive systems at the boundary of XR, agents, and spatial computing.
             </p>
             
             <p className="about-description">
-              I am a <span className="highlight">Senior Undergraduate</span> at{' '}
+              I am a <span className="highlight">recent graduate</span> of{' '}
               <span className="highlight">Stony Brook University</span>. My experience spans across the domain of{' '}
               <span className="highlight">XR</span>, <span className="highlight">AI agents</span>,{' '}
               <span className="highlight">spatial computing</span>, and <span className="highlight">human-computer interaction</span>.

@@ -80,7 +80,7 @@ export default function Hero() {
         </p>
         <div className="description">
           <p>Senior AR Dev Mentor @ <a href="https://www.xreal.info/" target="_blank" rel="noopener noreferrer">XREAL</a></p>
-          <p>AR Developer @ Immersyn</p>
+          <p>AR Developer @ Immersyn (Folding Birding)</p>
           <p>VR Software Engineering Intern @ <a href="https://mingle-ai.com/en" target="_blank" rel="noopener noreferrer">KAI.Inc</a> (Jun 2025 - Sept 2025)</p>
         </div>
         <div className="featured-press">
@@ -111,6 +111,23 @@ export default function Hero() {
           <a href="https://drive.google.com/file/d/1zU0mOuQvxPLiF_YwOE4YZobviriola0m/view?usp=sharing">CV</a>
         </nav>
       </div>
+      <a href="#press" className="scroll-indicator" aria-label="Scroll down">
+        <span className="scroll-indicator-label">scroll</span>
+        <svg
+          width="14"
+          height="22"
+          viewBox="0 0 14 22"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="1.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          aria-hidden
+        >
+          <path d="M7 1v18" />
+          <path d="M1 13l6 6 6-6" />
+        </svg>
+      </a>
     </section>
   )
 }

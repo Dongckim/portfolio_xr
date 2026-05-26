@@ -258,6 +258,49 @@ body {
   background: rgba(124, 196, 255, 0.16);
 }
 
+/* Scroll indicator — fixed to viewport so it sits at the visible bottom
+   regardless of how tall the hero content grows. Inherits .hero opacity
+   so it fades naturally on scroll. */
+.scroll-indicator {
+  position: fixed;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  color: rgba(224, 224, 224, 0.55);
+  text-decoration: none;
+  font-family: 'Courier New', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.4em;
+  text-transform: uppercase;
+  z-index: 30;
+  pointer-events: auto;
+  transition: color 0.3s ease;
+  animation: scroll-hint 2.4s ease-in-out infinite;
+}
+
+.scroll-indicator:hover {
+  color: #ffffff;
+}
+
+.scroll-indicator-label {
+  opacity: 0.7;
+}
+
+@keyframes scroll-hint {
+  0%, 100% {
+    transform: translate(-50%, 0);
+    opacity: 0.55;
+  }
+  50% {
+    transform: translate(-50%, 6px);
+    opacity: 1;
+  }
+}
+
 .korean-name-tooltip {
   position: fixed;
   pointer-events: none;

@@ -64,7 +64,7 @@ export default function BackgroundMusic({ videoId, volume = 15, credit = "F1 - H
         new yt.Player(containerRef.current, {
           videoId: videoId,
           playerVars: {
-            autoplay: 1,
+            autoplay: 0,
             loop: 1,
             playlist: videoId, // Required for loop to work
             start: 30, // Start from 10 seconds
@@ -84,21 +84,7 @@ export default function BackgroundMusic({ videoId, volume = 15, credit = "F1 - H
               console.log('Background music player ready')
               playerRef.current = event.target
               event.target.setVolume(currentVolume)
-              
-              // Try to play - may fail due to autoplay policy
-              const tryPlay = () => {
-                try {
-                  event.target.playVideo()
-                  console.log('Attempting to play background music')
-                } catch (error) {
-                  console.log('Autoplay blocked, waiting for user interaction')
-                }
-              }
-              
-              tryPlay()
-              
-              // Also try after a short delay
-              setTimeout(tryPlay, 500)
+              // No autoplay — playback starts only when the user clicks the play button.
             },
             onStateChange: (event: { data: number; target: BackgroundYTPlayer }) => {
               // YT.PlayerState.ENDED = 0
@@ -125,30 +111,7 @@ export default function BackgroundMusic({ videoId, volume = 15, credit = "F1 - H
       }
     }
 
-    // Start playback on first user interaction
-    const handleUserInteraction = () => {
-      if (playerRef.current && !hasStartedRef.current) {
-        try {
-          playerRef.current.playVideo()
-          console.log('Starting background music after user interaction')
-          hasStartedRef.current = true
-          setIsPlaying(true) // Update state to show pause icon
-          // Remove listeners after first play
-          document.removeEventListener('click', handleUserInteraction)
-          document.removeEventListener('touchstart', handleUserInteraction)
-          document.removeEventListener('keydown', handleUserInteraction)
-        } catch (error) {
-          console.log('Error starting music:', error)
-        }
-      }
-    }
-
     loadYouTubeAPI()
-
-    // Add event listeners for user interaction
-    document.addEventListener('click', handleUserInteraction, { once: true })
-    document.addEventListener('touchstart', handleUserInteraction, { once: true })
-    document.addEventListener('keydown', handleUserInteraction, { once: true })
 
     return () => {
       if (playerRef.current) {
@@ -161,9 +124,6 @@ export default function BackgroundMusic({ videoId, volume = 15, credit = "F1 - H
       if (playStateCheckIntervalRef.current) {
         window.clearInterval(playStateCheckIntervalRef.current)
       }
-      document.removeEventListener('click', handleUserInteraction)
-      document.removeEventListener('touchstart', handleUserInteraction)
-      document.removeEventListener('keydown', handleUserInteraction)
     }
   }, [videoId, currentVolume])
 
