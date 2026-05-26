@@ -79,7 +79,7 @@ export default function Hero() {
             Building immersive XR systems with a focus on spatial interaction and real-time UX.
         </p>
         <div className="description">
-          <p>Senior AR Dev Mentor @ <a href="https://www.xreal.info/" target="_blank" rel="noopener noreferrer">XREAL</a></p>
+          <p>Senior AR Dev Mentor @ <a href="https://www.xreal.info/" target="_blank" rel="noopener noreferrer">XREAL</a>(SNU)</p>
           <p>AR Developer @ Immersyn (Folding Birding)</p>
           <p>VR Software Engineering Intern @ <a href="https://mingle-ai.com/en" target="_blank" rel="noopener noreferrer">KAI.Inc</a> (Jun 2025 - Sept 2025)</p>
         </div>
